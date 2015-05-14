@@ -11,6 +11,7 @@
   "dependencies": {
     "log4js": "^0.6.25",
     "moving-average": "0.0.5",
-    "request": "^2.55.0"
+    "request": "^2.55.0",
+    "uuid": "^2.0.1"
   }
 }

@@ -36,5 +36,25 @@ describe('Request', function() {
       done();
     });
   });
+  
+  it('wrap request.get method', function(done) {
+    var request = http({ name: 'google2', logging: false });
+    request.get({ url: 'http://www.google.com' }, function(err, res, body) {
+      var stat = stats.stats()['google2'];
+      assert.equal(stat.count, 1);
+      
+      done();
+    });
+  });
+    
+  it('wrap request.post method', function(done) {
+    var request = http({ name: 'google3', logging: false });
+    request.post({ url: 'http://www.google.com' }, function(err, res, body) {
+      var stat = stats.stats()['google3'];
+      assert.equal(stat.count, 1);
+      
+      done();
+    });
+  });
 });
 
