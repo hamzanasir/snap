@@ -18,7 +18,7 @@ describe('Request', function() {
     request('http://www.google.com', function() {
       var stat = stats.stats()['google0'];
       assert.equal(stat.count, 1);
-      assert(stat.delay.movingAverage() > 50);
+      assert(stat.delay > 50);
 
       done();
     });

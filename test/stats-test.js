@@ -16,7 +16,7 @@ describe('Stats', function() {
       assert.equal(stat['count'], 1);
       assert.equal(stat['success'], 1);
       assert(!stat['failure']);
-      assert(stat['delay'].movingAverage() > 50);
+      assert(stat['delay'] > 50);
       
       done();
     });
@@ -34,7 +34,7 @@ describe('Stats', function() {
       assert.equal(stat['count'], 1);
       assert.equal(stat['failure'], 1);
       assert(!stat['success']);
-      assert(stat['delay'].movingAverage() < 50);
+      assert(stat['delay'] < 50);
       
       done();
     });
