@@ -1,6 +1,6 @@
 # Snap
 
-Snap is a framework to simplify the implementation of cross-cutting concerns in services.    It includes/could-include support for logging, statistics, discovery, configuration in a simple way and mostly as a very light wrapper of popular node.js libraries.
+Snap is a framework to simplify the implementation of cross-cutting concerns in services.    It includes/could-include support for logging, statistics, discovery, configuration, failover, monitoring in a simple way and mostly as a very light wrapper of popular node.js libraries.
 
 Snap is inspired by Finagle and ideally should expose a Promises based API.
 
