@@ -25,5 +25,42 @@ The wrapper doesn't change the request module API:
     var request = http('google');
     request('http://www.google.com', function() {
     });
+```
+
+# Hello World
+
+This is the hello world including the usage of stats, logging and http server module.
+
+This HTTP server generates stats and logs for all the http requests received in a consistent format.   It also logs manually some events (server startup) in the same format.
+
+```
+var express = require('express');
+var config = require('config');
+var log4js = require('log4js');
+var logging = require('snap-framework').Logging;
+var stats = require('snap-framework').Stats;
+var http = require('snap-framework').HttpServer;
+
+log4js.configure({ appenders: config.appenders });
+var logger = logging.getLogger();
+
+var app = express();
+app.use(http.filter('hello-world'));
+
+app.get ('/server/health', function(req, res) {
+  res.send({
+    stats: stats.stats()
   });
+});
+
+app.get('/', function (req, res) {
+  res.send('Hello World!');
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  logger.info(logging.format('ServerStart', { host: host, port: port }));
+});
 ```
