@@ -5,30 +5,44 @@ var assert = require('assert'),
 
 describe('Server Filter', function() {
   it('should measure stats', function(done) {
-	function on(event, callback) {
-	  callback();
-	}
+    function on(event, callback) {
+      callback();
+    }
     var filter = http.filter({ name: 'server', logging: false });
     filter({}, { on: on }, function() {
 	    assert.equal(stats.stats()['server'].count, 1);
       done();
     });
   });
-  
+
   it('should generate logs for requests', function(done) {
     var logged = false;
     logging.getLogger('server1').info = function() {
       logged = true;
     };
-	function on(event, callback) {
-	  callback();
-	}
+    function on(event, callback) {
+      callback();
+    }
     var filter = http.filter('server1');
     filter({}, { on: on }, function() {
 	    assert(logged);
       done();
     });
   });
-  
+
+  it('shouldnt generate logs for blacklisted requests', function(done) {
+    var logged = false;
+    logging.getLogger('server1').info = function() {
+      logged = true;
+    };
+    function on(event, callback) {
+      callback();
+    }
+    var filter = http.filter({ name: 'server1', blacklist: /\/health/i });
+    filter({ url: '/health' }, { on: on }, function() {
+      assert(!logged);
+      done();
+    });
+  });
 });
 
